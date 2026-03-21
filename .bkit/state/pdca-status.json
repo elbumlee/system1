@@ -1,0 +1,207 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-03-21T15:05:16.608Z",
+  "activeFeatures": [
+    "detector",
+    "api.ts",
+    "client",
+    "server",
+    "routes",
+    "generator"
+  ],
+  "primaryFeature": "detector",
+  "features": {
+    "detector": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-21T15:02:16.922Z",
+        "lastUpdated": "2026-03-21T15:04:31.748Z"
+      },
+      "lastFile": "/c/Users/rio72/Documents/claude/pii-masker/pii-masker/server/src/services/detector/surname.dict.ts"
+    },
+    "api.ts": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-21T15:02:58.506Z",
+        "lastUpdated": "2026-03-21T15:02:58.506Z"
+      },
+      "lastFile": "/c/Users/rio72/Documents/claude/pii-masker/pii-masker/client/src/services/api.ts"
+    },
+    "client": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-21T15:03:19.146Z",
+        "lastUpdated": "2026-03-21T15:03:19.146Z"
+      },
+      "lastFile": "/c/Users/rio72/Documents/claude/pii-masker/pii-masker/client/src/pages/Home.tsx"
+    },
+    "server": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-21T15:03:27.457Z",
+        "lastUpdated": "2026-03-21T15:03:27.457Z"
+      },
+      "lastFile": "/c/Users/rio72/Documents/claude/pii-masker/pii-masker/server/src/app.ts"
+    },
+    "routes": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-21T15:03:33.573Z",
+        "lastUpdated": "2026-03-21T15:03:47.322Z"
+      },
+      "lastFile": "/c/Users/rio72/Documents/claude/pii-masker/pii-masker/server/src/routes/upload.route.ts"
+    },
+    "generator": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-21T15:04:41.550Z",
+        "lastUpdated": "2026-03-21T15:05:16.608Z"
+      },
+      "lastFile": "/c/Users/rio72/Documents/claude/pii-masker/pii-masker/server/src/services/generator/pdf.overlay.ts"
+    }
+  },
+  "pipeline": {
+    "currentPhase": 1,
+    "level": "Dynamic",
+    "phaseHistory": []
+  },
+  "session": {
+    "startedAt": "2026-03-21T14:49:56.706Z",
+    "onboardingCompleted": false,
+    "lastActivity": "2026-03-21T15:05:16.608Z"
+  },
+  "history": [
+    {
+      "timestamp": "2026-03-21T15:02:16.922Z",
+      "feature": "detector",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:02:58.506Z",
+      "feature": "api.ts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:03:19.146Z",
+      "feature": "client",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:03:27.457Z",
+      "feature": "server",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:03:33.573Z",
+      "feature": "routes",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:03:38.853Z",
+      "feature": "routes",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:03:47.322Z",
+      "feature": "routes",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:03:55.089Z",
+      "feature": "detector",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:04:03.576Z",
+      "feature": "detector",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:04:20.725Z",
+      "feature": "detector",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:04:26.504Z",
+      "feature": "detector",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:04:31.748Z",
+      "feature": "detector",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:04:41.550Z",
+      "feature": "generator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:04:52.637Z",
+      "feature": "generator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:05:02.161Z",
+      "feature": "generator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:05:11.079Z",
+      "feature": "generator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T15:05:16.608Z",
+      "feature": "generator",
+      "phase": "do",
+      "action": "updated"
+    }
+  ]
+}
