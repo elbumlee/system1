@@ -37,7 +37,7 @@ class OCRResult(BaseModel):
 class OCRConfirm(BaseModel):
     image_id: str
     selected_names: List[str]
-    platform: str  # "steam", "epic", "switch", "unknown"
+    platform: Optional[str] = None  # "steam", "epic", "switch"
 
 
 class StorageConfig(BaseModel):
