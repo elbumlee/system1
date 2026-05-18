@@ -10,6 +10,7 @@ except ImportError:
     GSPREAD_AVAILABLE = False
 
 from models import Game
+from storage.base import AbstractStorage
 
 
 HEADERS = ["ID", "Name", "Steam", "Epic", "Switch", "Added Date", "Notes"]
@@ -20,7 +21,7 @@ SCOPES = [
 ]
 
 
-class SheetsStorage:
+class SheetsStorage(AbstractStorage):
     def __init__(self, sheet_id: str, credentials_path: Optional[str] = None):
         if not GSPREAD_AVAILABLE:
             raise RuntimeError(
@@ -94,14 +95,6 @@ class SheetsStorage:
             if game:
                 games.append(game)
         return games
-
-    def get_game_by_id(self, game_id: str) -> Optional[Game]:
-        """Find a game by ID."""
-        games = self.get_all_games()
-        for game in games:
-            if game.id == game_id:
-                return game
-        return None
 
     def _find_row_by_id(self, game_id: str) -> Optional[int]:
         """Find the 1-based row index of a game by ID."""

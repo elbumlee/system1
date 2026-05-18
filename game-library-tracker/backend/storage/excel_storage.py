@@ -7,12 +7,13 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 
 from models import Game
+from storage.base import AbstractStorage
 
 
 HEADERS = ["ID", "Name", "Steam", "Epic", "Switch", "Added Date", "Notes"]
 
 
-class ExcelStorage:
+class ExcelStorage(AbstractStorage):
     def __init__(self, file_path: Optional[str] = None):
         if file_path:
             self.file_path = Path(os.path.expanduser(file_path))
@@ -69,14 +70,6 @@ class ExcelStorage:
             ))
 
         return games
-
-    def get_game_by_id(self, game_id: str) -> Optional[Game]:
-        """Find a game by ID."""
-        games = self.get_all_games()
-        for game in games:
-            if game.id == game_id:
-                return game
-        return None
 
     def add_game(self, game: Game) -> Game:
         """Append a new game row to the Excel file."""
