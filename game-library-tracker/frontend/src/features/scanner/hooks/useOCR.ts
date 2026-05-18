@@ -25,7 +25,7 @@ export function useOCR() {
     try {
       const ocr = await uploadImageForOCR(f);
       setResult(ocr);
-      setSelected(new Set(ocr.candidates));
+      setSelected(new Set(ocr.candidates.map((c) => c.name)));
       if (ocr.platform_hint !== 'unknown') {
         setPlatform(ocr.platform_hint as Platform);
       }
@@ -49,8 +49,33 @@ export function useOCR() {
     if (selected.size === result.candidates.length) {
       setSelected(new Set());
     } else {
-      setSelected(new Set(result.candidates));
+      setSelected(new Set(result.candidates.map((c) => c.name)));
     }
+  }
+
+  function rename(oldName: string, newName: string) {
+    if (!result || !newName.trim() || oldName === newName.trim()) return;
+    const trimmed = newName.trim();
+    // Update result candidates
+    setResult((prev) =>
+      prev
+        ? {
+            ...prev,
+            candidates: prev.candidates.map((c) =>
+              c.name === oldName ? { ...c, name: trimmed } : c
+            ),
+          }
+        : null
+    );
+    // Update selected set
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(oldName)) {
+        next.delete(oldName);
+        next.add(trimmed);
+      }
+      return next;
+    });
   }
 
   function reset() {
@@ -93,6 +118,7 @@ export function useOCR() {
     handleFile,
     toggleCandidate,
     toggleAll,
+    rename,
     setPlatform,
     reset,
     confirm,
