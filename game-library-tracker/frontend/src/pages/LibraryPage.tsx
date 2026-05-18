@@ -53,6 +53,10 @@ export default function LibraryPage() {
     await togglePlatform(id, platform, current);
   }
 
+  async function handleFavoriteToggle(id: string, current: boolean) {
+    await editGame(id, { favorite: !current });
+  }
+
   return (
     <div className="app">
       {/* Header */}
@@ -106,6 +110,7 @@ export default function LibraryPage() {
           onToggle={handleToggle}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          onFavoriteToggle={handleFavoriteToggle}
         />
       </main>
 

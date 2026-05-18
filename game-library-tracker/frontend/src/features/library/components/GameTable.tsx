@@ -11,6 +11,7 @@ interface Props {
   onToggle: (id: string, platform: Platform, current: boolean) => void;
   onEdit: (id: string, payload: Partial<Game>) => void;
   onDelete: (id: string) => void;
+  onFavoriteToggle: (id: string, current: boolean) => void;
 }
 
 export default function GameTable({
@@ -21,6 +22,7 @@ export default function GameTable({
   onToggle,
   onEdit,
   onDelete,
+  onFavoriteToggle,
 }: Props) {
   function SortIcon({ field }: { field: SortConfig['field'] }) {
     if (sortConfig.field !== field)
@@ -50,6 +52,7 @@ export default function GameTable({
       <table className="game-table">
         <thead>
           <tr>
+            <th className="th-fav">★</th>
             <th className="th-name" onClick={() => onSort('name')}>
               게임명 <SortIcon field="name" />
             </th>
@@ -59,6 +62,7 @@ export default function GameTable({
             <th className="th-date" onClick={() => onSort('added_date')}>
               추가일 <SortIcon field="added_date" />
             </th>
+            <th className="th-genre">장르</th>
             <th className="th-notes">메모</th>
             <th className="th-actions"></th>
           </tr>
@@ -71,6 +75,7 @@ export default function GameTable({
               onToggle={onToggle}
               onEdit={onEdit}
               onDelete={onDelete}
+              onFavoriteToggle={onFavoriteToggle}
             />
           ))}
         </tbody>

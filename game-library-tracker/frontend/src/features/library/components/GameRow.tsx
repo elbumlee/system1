@@ -2,22 +2,29 @@ import { useState } from 'react';
 import { Trash2, Edit2, Check, X } from 'lucide-react';
 import type { Game, Platform } from '../../../types';
 import PlatformToggle from '../../platform/components/PlatformToggle';
+import { GENRES } from '../../game-form/constants';
 
 interface Props {
   game: Game;
   onToggle: (id: string, platform: Platform, current: boolean) => void;
   onEdit: (id: string, payload: Partial<Game>) => void;
   onDelete: (id: string) => void;
+  onFavoriteToggle: (id: string, current: boolean) => void;
 }
 
-export default function GameRow({ game, onToggle, onEdit, onDelete }: Props) {
+export default function GameRow({ game, onToggle, onEdit, onDelete, onFavoriteToggle }: Props) {
   const [editing, setEditing] = useState(false);
   const [editName, setEditName] = useState(game.name);
   const [editNotes, setEditNotes] = useState(game.notes);
+  const [editGenre, setEditGenre] = useState(game.genre ?? '');
 
   function saveEdit() {
     if (editName.trim()) {
-      onEdit(game.id, { name: editName.trim(), notes: editNotes.trim() });
+      onEdit(game.id, {
+        name: editName.trim(),
+        notes: editNotes.trim(),
+        genre: editGenre,
+      });
     }
     setEditing(false);
   }
@@ -25,11 +32,24 @@ export default function GameRow({ game, onToggle, onEdit, onDelete }: Props) {
   function cancelEdit() {
     setEditName(game.name);
     setEditNotes(game.notes);
+    setEditGenre(game.genre ?? '');
     setEditing(false);
   }
 
   return (
     <tr className="game-row">
+      {/* Favorite star */}
+      <td className="fav-cell">
+        <button
+          className={`fav-btn ${game.favorite ? 'active' : 'inactive'}`}
+          onClick={() => onFavoriteToggle(game.id, game.favorite)}
+          title={game.favorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+        >
+          {game.favorite ? '★' : '☆'}
+        </button>
+      </td>
+
+      {/* Game name */}
       <td className="game-name-cell">
         {editing ? (
           <input
@@ -47,6 +67,7 @@ export default function GameRow({ game, onToggle, onEdit, onDelete }: Props) {
         )}
       </td>
 
+      {/* Platform toggles */}
       {(['steam', 'epic', 'switch'] as Platform[]).map((p) => (
         <td key={p} className="platform-cell">
           <PlatformToggle
@@ -57,8 +78,33 @@ export default function GameRow({ game, onToggle, onEdit, onDelete }: Props) {
         </td>
       ))}
 
+      {/* Date */}
       <td className="date-cell">{game.added_date}</td>
 
+      {/* Genre */}
+      <td className="genre-cell">
+        {editing ? (
+          <select
+            className="edit-input"
+            value={editGenre}
+            onChange={(e) => setEditGenre(e.target.value)}
+            style={{ minWidth: 80 }}
+          >
+            <option value="">-</option>
+            {GENRES.map((g) => (
+              <option key={g} value={g}>
+                {g}
+              </option>
+            ))}
+          </select>
+        ) : game.genre ? (
+          <span className="genre-badge">{game.genre}</span>
+        ) : (
+          <span style={{ color: 'var(--text-muted)' }}>-</span>
+        )}
+      </td>
+
+      {/* Notes */}
       <td className="notes-cell">
         {editing ? (
           <input
@@ -72,6 +118,7 @@ export default function GameRow({ game, onToggle, onEdit, onDelete }: Props) {
         )}
       </td>
 
+      {/* Actions */}
       <td className="actions-cell">
         {editing ? (
           <div className="action-btns">

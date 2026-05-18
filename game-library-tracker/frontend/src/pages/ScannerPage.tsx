@@ -26,6 +26,7 @@ export default function ScannerPage() {
     handleFile,
     toggleCandidate,
     toggleAll,
+    rename,
     setPlatform,
     reset,
     confirm,
@@ -78,6 +79,7 @@ export default function ScannerPage() {
                 selected={selected}
                 onToggle={toggleCandidate}
                 onToggleAll={toggleAll}
+                onRename={rename}
               />
             </>
           )}
