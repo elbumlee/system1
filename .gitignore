@@ -1,0 +1,22 @@
+# Frontend build outputs
+game-library-tracker/frontend/dist/
+game-library-tracker/frontend/node_modules/
+
+# Backend virtual environment
+game-library-tracker/backend/.venv/
+game-library-tracker/backend/__pycache__/
+game-library-tracker/backend/**/__pycache__/
+game-library-tracker/backend/*.pyc
+
+# Environment files (keep .env.example, ignore actual .env)
+game-library-tracker/backend/.env
+
+# Python
+*.pyc
+*.pyo
+__pycache__/
+
+# Node
+node_modules/
+dist/
+.vite/
