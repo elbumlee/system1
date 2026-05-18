@@ -5,14 +5,21 @@ export interface Game {
   epic: boolean;
   switch: boolean;
   added_date: string;
+  genre: string;
+  favorite: boolean;
   notes: string;
 }
 
 export type Platform = 'steam' | 'epic' | 'switch';
 
+export interface OCRCandidate {
+  name: string;
+  confidence: number; // 0-100
+}
+
 export interface OCRResult {
   image_id: string;
-  candidates: string[];
+  candidates: OCRCandidate[];
   platform_hint: string;
 }
 

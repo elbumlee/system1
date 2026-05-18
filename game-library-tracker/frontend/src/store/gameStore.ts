@@ -61,6 +61,7 @@ export function useFilteredGames(): Game[] {
       }
 
       result.sort((a, b) => {
+        if (a.favorite !== b.favorite) return a.favorite ? -1 : 1;
         const aVal = a[state.sortConfig.field] ?? '';
         const bVal = b[state.sortConfig.field] ?? '';
         const cmp = String(aVal).localeCompare(String(bVal), 'ko');
