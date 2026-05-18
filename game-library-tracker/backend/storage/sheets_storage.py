@@ -13,7 +13,7 @@ from models import Game
 from storage.base import AbstractStorage
 
 
-HEADERS = ["ID", "Name", "Steam", "Epic", "Switch", "Added Date", "Notes"]
+HEADERS = ["ID", "Name", "Steam", "Epic", "Switch", "Added Date", "Notes", "Genre", "Favorite"]
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -60,9 +60,9 @@ class SheetsStorage(AbstractStorage):
 
     def _setup_headers(self):
         """Write header row to the sheet."""
-        self._worksheet.update("A1:G1", [HEADERS])
+        self._worksheet.update("A1:I1", [HEADERS])
         # Bold the header row
-        self._worksheet.format("A1:G1", {
+        self._worksheet.format("A1:I1", {
             "textFormat": {"bold": True},
             "backgroundColor": {"red": 0.12, "green": 0.31, "blue": 0.47},
         })
@@ -71,11 +71,11 @@ class SheetsStorage(AbstractStorage):
         """Convert a sheet row (list) to a Game object."""
         if not row or not row[0]:
             return None
-        # Pad row to ensure it has 7 elements
-        while len(row) < 7:
+        # Pad row to ensure it has 9 elements (handles old 7-column files gracefully)
+        while len(row) < 9:
             row.append("")
 
-        game_id, name, steam, epic, switch, added_date, notes = row[:7]
+        game_id, name, steam, epic, switch, added_date, notes, genre, favorite = row[:9]
         return Game(
             id=str(game_id),
             name=str(name) if name else "",
@@ -84,6 +84,8 @@ class SheetsStorage(AbstractStorage):
             switch=str(switch).upper() in ("TRUE", "1", "YES"),
             added_date=str(added_date) if added_date else date.today().isoformat(),
             notes=str(notes) if notes else "",
+            genre=str(genre) if genre else "",
+            favorite=str(favorite).upper() in ("TRUE", "1", "YES"),
         )
 
     def get_all_games(self) -> List[Game]:
@@ -114,6 +116,8 @@ class SheetsStorage(AbstractStorage):
             str(game.switch),
             game.added_date,
             game.notes,
+            game.genre,
+            str(game.favorite),
         ]
         self._worksheet.append_row(row_data)
         return game
@@ -125,7 +129,8 @@ class SheetsStorage(AbstractStorage):
             return None
 
         row = self._worksheet.row_values(row_idx)
-        while len(row) < 7:
+        # Pad to 9 columns to handle old files without genre/favorite
+        while len(row) < 9:
             row.append("")
 
         if "name" in updates and updates["name"] is not None:
@@ -138,8 +143,12 @@ class SheetsStorage(AbstractStorage):
             row[4] = str(updates["switch"])
         if "notes" in updates and updates["notes"] is not None:
             row[6] = updates["notes"]
+        if "genre" in updates and updates["genre"] is not None:
+            row[7] = updates["genre"]
+        if "favorite" in updates and updates["favorite"] is not None:
+            row[8] = str(updates["favorite"])
 
-        self._worksheet.update(f"A{row_idx}:G{row_idx}", [row])
+        self._worksheet.update(f"A{row_idx}:I{row_idx}", [row])
         return self.get_game_by_id(game_id)
 
     def delete_game(self, game_id: str) -> bool:

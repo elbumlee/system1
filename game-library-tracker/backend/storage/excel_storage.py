@@ -10,7 +10,7 @@ from models import Game
 from storage.base import AbstractStorage
 
 
-HEADERS = ["ID", "Name", "Steam", "Epic", "Switch", "Added Date", "Notes"]
+HEADERS = ["ID", "Name", "Steam", "Epic", "Switch", "Added Date", "Notes", "Genre", "Favorite"]
 
 
 class ExcelStorage(AbstractStorage):
@@ -40,7 +40,7 @@ class ExcelStorage(AbstractStorage):
                 cell.alignment = header_alignment
 
             # Set column widths
-            col_widths = [36, 40, 8, 8, 8, 15, 40]
+            col_widths = [36, 40, 8, 8, 8, 15, 40, 20, 10]
             for col_idx, width in enumerate(col_widths, start=1):
                 ws.column_dimensions[ws.cell(row=1, column=col_idx).column_letter].width = width
 
@@ -58,7 +58,17 @@ class ExcelStorage(AbstractStorage):
         for row in ws.iter_rows(min_row=2, values_only=True):
             if row[0] is None:
                 continue
-            game_id, name, steam, epic, switch, added_date, notes = row
+            # Support old files with 7 columns (no Genre/Favorite) by checking row length
+            game_id = row[0]
+            name = row[1] if len(row) > 1 else None
+            steam = row[2] if len(row) > 2 else None
+            epic = row[3] if len(row) > 3 else None
+            switch = row[4] if len(row) > 4 else None
+            added_date = row[5] if len(row) > 5 else None
+            notes = row[6] if len(row) > 6 else None
+            genre = row[7] if len(row) > 7 else None
+            favorite = row[8] if len(row) > 8 else None
+
             games.append(Game(
                 id=str(game_id),
                 name=str(name) if name else "",
@@ -67,6 +77,8 @@ class ExcelStorage(AbstractStorage):
                 switch=bool(switch) if switch is not None else False,
                 added_date=str(added_date) if added_date else date.today().isoformat(),
                 notes=str(notes) if notes else "",
+                genre=str(genre) if genre else "",
+                favorite=bool(favorite) if favorite is not None else False,
             ))
 
         return games
@@ -86,6 +98,8 @@ class ExcelStorage(AbstractStorage):
         ws.cell(row=next_row, column=5, value=game.switch)
         ws.cell(row=next_row, column=6, value=game.added_date)
         ws.cell(row=next_row, column=7, value=game.notes)
+        ws.cell(row=next_row, column=8, value=game.genre)
+        ws.cell(row=next_row, column=9, value=game.favorite)
 
         wb.save(self.file_path)
         return game
@@ -107,6 +121,10 @@ class ExcelStorage(AbstractStorage):
                     ws.cell(row=row_idx, column=5, value=updates["switch"])
                 if "notes" in updates and updates["notes"] is not None:
                     ws.cell(row=row_idx, column=7, value=updates["notes"])
+                if "genre" in updates and updates["genre"] is not None:
+                    ws.cell(row=row_idx, column=8, value=updates["genre"])
+                if "favorite" in updates and updates["favorite"] is not None:
+                    ws.cell(row=row_idx, column=9, value=updates["favorite"])
                 wb.save(self.file_path)
 
                 # Reload and return updated game
