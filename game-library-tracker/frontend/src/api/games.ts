@@ -11,6 +11,8 @@ export const createGame = async (payload: {
   steam: boolean;
   epic: boolean;
   switch: boolean;
+  genre: string;
+  favorite: boolean;
   notes: string;
 }): Promise<Game> => {
   const res = await api.post<Game>('/games', payload);
@@ -24,6 +26,8 @@ export const updateGame = async (
     steam: boolean;
     epic: boolean;
     switch: boolean;
+    genre: string;
+    favorite: boolean;
     notes: string;
   }>
 ): Promise<Game> => {

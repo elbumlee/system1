@@ -11,6 +11,8 @@ export function useGameMutate() {
     steam: boolean;
     epic: boolean;
     switch: boolean;
+    genre: string;
+    favorite: boolean;
     notes: string;
   }): Promise<Game> {
     const newGame = await createGame(payload);

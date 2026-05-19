@@ -1,0 +1,65 @@
+{
+  "project": "game-library-tracker",
+  "analyzed_at": "2026-05-19",
+  "current_phase": "DESIGN",
+  "completed_phases": ["PLAN"],
+  "status": "DONE",
+  "concerns": [
+    "api/games.ts createGame/updateGame 페이로드에 genre, favorite 누락 (T001)",
+    "useGameMutate.addGame 시그니처에 genre, favorite 누락 (T002)",
+    "export_service.py generate_excel()에 Genre, Favorite 열 누락 (T003)",
+    "PWA 아이콘 파일 미확인 (T004)",
+    "pytesseract Windows 경로(TESSERACT_CMD) config.py 미지원 (T005)"
+  ],
+  "plan": {
+    "feature_list": [
+      { "id": "F001", "name": "게임 목록 조회", "priority": "must", "status": "done" },
+      { "id": "F002", "name": "게임 수동 추가", "priority": "must", "status": "done_with_bug" },
+      { "id": "F003", "name": "게임 수정", "priority": "must", "status": "done" },
+      { "id": "F004", "name": "게임 삭제", "priority": "must", "status": "done" },
+      { "id": "F005", "name": "플랫폼 토글", "priority": "must", "status": "done" },
+      { "id": "F006", "name": "검색", "priority": "must", "status": "done" },
+      { "id": "F007", "name": "플랫폼 필터", "priority": "must", "status": "done" },
+      { "id": "F008", "name": "정렬", "priority": "must", "status": "done" },
+      { "id": "F009", "name": "즐겨찾기 토글", "priority": "must", "status": "done" },
+      { "id": "F010", "name": "OCR 이미지 업로드 및 후보 추출", "priority": "must", "status": "done" },
+      { "id": "F011", "name": "OCR 신뢰도 표시 (80% 미만 빨간 텍스트)", "priority": "must", "status": "done" },
+      { "id": "F012", "name": "OCR 후보 선택 및 이름 편집", "priority": "must", "status": "done" },
+      { "id": "F013", "name": "OCR 결과 확정 및 게임 추가", "priority": "must", "status": "done" },
+      { "id": "F014", "name": "Excel 저장소", "priority": "must", "status": "done" },
+      { "id": "F015", "name": "Google Sheets 저장소", "priority": "must", "status": "done" },
+      { "id": "F016", "name": "저장소 전환", "priority": "must", "status": "done" },
+      { "id": "F017", "name": "Excel 내보내기", "priority": "must", "status": "done_with_bug" },
+      { "id": "F018", "name": "게임 상세 페이지", "priority": "must", "status": "done" },
+      { "id": "F019", "name": "PWA 설치", "priority": "nice", "status": "partial" },
+      { "id": "F020", "name": "로컬 네트워크 접속", "priority": "nice", "status": "done" }
+    ],
+    "module_structure": {
+      "backend": ["B-1:models", "B-2:config", "B-3:storage", "B-4:ocr", "B-5:services", "B-6:deps", "B-7:routers", "B-8:main"],
+      "frontend": ["F-1:types", "F-2:api", "F-3:store", "F-4:shared", "F-5:platform", "F-6:library", "F-7:game-form", "F-8:scanner", "F-9:storage", "F-10:pages"]
+    },
+    "task_list": [
+      { "id": "T001", "file": "frontend/src/api/games.ts", "description": "createGame/updateGame에 genre, favorite 필드 추가", "status": "pending" },
+      { "id": "T002", "file": "frontend/src/features/library/hooks/useGameMutate.ts", "description": "addGame 시그니처에 genre, favorite 추가", "status": "pending" },
+      { "id": "T003", "file": "backend/services/export_service.py", "description": "generate_excel()에 Genre, Favorite 열 추가", "status": "pending" },
+      { "id": "T004", "file": "frontend/public/icons/", "description": "PWA 아이콘 파일 생성 (192, 512, apple-touch, favicon)", "status": "pending" },
+      { "id": "T005", "file": "backend/config.py", "description": "TESSERACT_CMD 환경변수 지원 추가", "status": "pending" }
+    ]
+  },
+  "current_phase": "CODE",
+  "completed_phases": ["PLAN", "CODE", "REVIEW"],
+  "files_touched": [
+    "frontend/src/api/games.ts",
+    "frontend/src/features/library/hooks/useGameMutate.ts",
+    "backend/services/export_service.py",
+    "backend/config.py",
+    "backend/ocr/processor.py",
+    "backend/.env.example",
+    "frontend/public/icons/icon-192x192.png",
+    "frontend/public/icons/icon-512x512.png",
+    "frontend/public/apple-touch-icon.png",
+    "frontend/public/favicon.ico",
+    "frontend/public/masked-icon.svg"
+  ],
+  "next_task": "/리뷰 또는 /review"
+}

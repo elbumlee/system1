@@ -23,6 +23,13 @@ class OCRProcessor:
             raise RuntimeError("Pillow is required: pip install Pillow")
         if not TESSERACT_AVAILABLE:
             raise RuntimeError("pytesseract is required: pip install pytesseract")
+        # Windows 환경에서 Tesseract 경로가 PATH에 없을 때 config에서 직접 지정
+        try:
+            from config import settings
+            if settings.tesseract_cmd:
+                pytesseract.pytesseract.tesseract_cmd = settings.tesseract_cmd
+        except Exception:
+            pass
 
     def preprocess_image(self, image_bytes: bytes) -> "Image.Image":
         image = Image.open(io.BytesIO(image_bytes))

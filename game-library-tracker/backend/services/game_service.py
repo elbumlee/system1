@@ -23,6 +23,8 @@ class GameService:
             epic=payload.epic,
             switch=payload.switch,
             added_date=date.today().isoformat(),
+            genre=payload.genre,
+            favorite=payload.favorite,
             notes=payload.notes,
         )
         return self.storage.add_game(game)

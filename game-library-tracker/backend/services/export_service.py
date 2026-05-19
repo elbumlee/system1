@@ -13,7 +13,7 @@ def generate_excel(games: List[Game]) -> io.BytesIO:
     ws = wb.active
     ws.title = "Games"
 
-    headers = ["ID", "Name", "Steam", "Epic", "Switch", "Added Date", "Notes"]
+    headers = ["ID", "Name", "Steam", "Epic", "Switch", "Added Date", "Notes", "Genre", "Favorite"]
     header_font = Font(bold=True, color="FFFFFF")
     header_fill = PatternFill(start_color="1F4E79", end_color="1F4E79", fill_type="solid")
     header_alignment = Alignment(horizontal="center", vertical="center")
@@ -24,7 +24,7 @@ def generate_excel(games: List[Game]) -> io.BytesIO:
         cell.fill = header_fill
         cell.alignment = header_alignment
 
-    col_widths = [36, 40, 8, 8, 8, 15, 40]
+    col_widths = [36, 40, 8, 8, 8, 15, 40, 20, 10]
     for col_idx, width in enumerate(col_widths, start=1):
         ws.column_dimensions[ws.cell(row=1, column=col_idx).column_letter].width = width
 
@@ -36,6 +36,8 @@ def generate_excel(games: List[Game]) -> io.BytesIO:
         ws.cell(row=row_idx, column=5, value=game.switch)
         ws.cell(row=row_idx, column=6, value=game.added_date)
         ws.cell(row=row_idx, column=7, value=game.notes)
+        ws.cell(row=row_idx, column=8, value=game.genre)
+        ws.cell(row=row_idx, column=9, value="TRUE" if game.favorite else "FALSE")
 
     buffer = io.BytesIO()
     wb.save(buffer)
