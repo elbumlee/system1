@@ -75,11 +75,12 @@ def clean_candidates(raw_lines: List[str]) -> List[str]:
 
         # Remove common OCR artifacts
         line = re.sub(r"[|\\]{2,}", "", line)  # Double pipes/backslashes
-        line = re.sub(r"\s{2,}", " ", line)     # Multiple spaces
         line = line.strip(".-_|/\\")             # Leading/trailing symbols
 
         # Split on obvious separators that wouldn't be in game names
-        parts = re.split(r"\s{3,}|\t+", line)
+        # (탭 분리를 공백 정규화 전에 수행해야 탭이 보존됨)
+        parts = re.split(r"\t+", line)
+        parts = [re.sub(r" {2,}", " ", p) for p in parts]  # Multiple spaces in each part
 
         for part in parts:
             part = part.strip()
