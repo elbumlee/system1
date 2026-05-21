@@ -45,7 +45,7 @@ export default function GameDetailPage() {
     setError('');
     setSuccess('');
     try {
-      await editGame(game.id, form.getPayload());
+      await editGame(game!.id, form.getPayload());
       setSuccess('저장되었습니다.');
     } catch {
       setError('저장에 실패했습니다.');
