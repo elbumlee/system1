@@ -23,7 +23,7 @@ export function useStorage() {
         if (info.excel_file_path) setExcelPath(info.excel_file_path);
         if (info.google_sheet_id) setGoogleSheetId(info.google_sheet_id);
       })
-      .catch(() => {});
+      .catch(() => { setError('저장소 설정을 불러오지 못했습니다.'); });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

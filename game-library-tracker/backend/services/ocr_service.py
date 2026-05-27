@@ -7,26 +7,24 @@ from storage.base import AbstractStorage
 
 
 class OCRService:
-    _cache: Dict[str, OCRResult] = {}
+    def __init__(self) -> None:
+        self._cache: Dict[str, OCRResult] = {}
 
     def process_image(self, image_bytes: bytes) -> OCRResult:
-        try:
-            from ocr.processor import OCRProcessor
-            processor = OCRProcessor()
-        except RuntimeError:
-            raise
+        from ocr.processor import OCRProcessor
+        processor = OCRProcessor()
 
         candidates, platform_hint = processor.process(image_bytes)
         image_id = str(uuid.uuid4())
         result = OCRResult(image_id=image_id, candidates=candidates, platform_hint=platform_hint)
-        OCRService._cache[image_id] = result
+        self._cache[image_id] = result
         return result
 
     def get_cached_result(self, image_id: str) -> OCRResult | None:
-        return OCRService._cache.get(image_id)
+        return self._cache.get(image_id)
 
     def confirm_games(self, payload: OCRConfirm, storage: AbstractStorage) -> List[Game]:
-        cached = OCRService._cache.get(payload.image_id)
+        cached = self._cache.get(payload.image_id)
         if cached is None:
             return []
 
@@ -51,5 +49,5 @@ class OCRService:
             storage.add_game(game)
             added_games.append(game)
 
-        del OCRService._cache[payload.image_id]
+        del self._cache[payload.image_id]
         return added_games
